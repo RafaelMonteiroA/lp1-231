@@ -1,0 +1,16 @@
+package semana10;
+
+public class Circulo {
+    public double raio;
+
+    public double calcularArea(){
+        return Math.pow(raio, 2) * Math.PI;
+    }
+
+    public double calcularPerimetro(){
+        return 2 * Math.PI * raio;
+    }
+
+
+}
+

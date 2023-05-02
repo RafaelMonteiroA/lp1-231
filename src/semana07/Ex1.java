@@ -1,11 +1,8 @@
 package semana07;
 
-import java.util.Scanner;
-
 public class Ex1 {
-    public static void main(String[] args) {
 
-        public static double Soma(double a, double b, double c) {
+        public static double soma(double a, double b, double c) {
             return a + b + c;
         }
 
@@ -22,10 +19,10 @@ public class Ex1 {
 
            if (c > maior) {
             maior = c;
-              }
 
-            return maior;
         }
+        return maior;
+    }
 
         public static int MenorValor(int a, int b, int c) {
             int menor = a;
@@ -92,4 +89,3 @@ public class Ex1 {
             return resultado;
         }
     }
-}
