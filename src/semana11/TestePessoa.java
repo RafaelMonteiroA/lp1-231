@@ -25,7 +25,7 @@ public class TestePessoa {
 
         double perderPeso = p1.Peso - p1.pesoNormal2();
 
-        assertEquals(perderPeso, 6.039000000000016);
+        assertEquals(perderPeso, 6.039, 0.001);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class TestePessoa {
 
         double ganharPeso = p1.pesoNormal1() - p1.Peso;
 
-        assertEquals(ganharPeso, 3.4649999999999963);
+        assertEquals(ganharPeso, 3.464,0.001);
     }
 
     @Test
