@@ -1,27 +1,42 @@
-/**
- package semana06;
+package semana06;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
 public class AquarioTest {
-
+    
     @Test
-    public static void AquarioPositivo() {
-        double Comprimento = 100;
-        double Altura = 50;
-        double Largura = 50;
-        double TempDesejada = 30;
-        double TempAmbiente = 20;
+    public void calcularVolume(){
+       
+        double Comprimento = 10.0;
+        double Altura = 20.0;
+        double Largura = 10.0;
 
         double Volume = (Comprimento*Altura*Largura)/1000;
-        double PotenciaTermostrato = Volume * 0.05 * (TempDesejada - TempAmbiente);
-        double Filtragem = Volume*3;
 
-        assertEquals(250, Volume);
-        assertEquals(125, PotenciaTermostrato);
-        assertEquals(750, Filtragem);
+        assertEquals(Volume, 2);
+    }
+
+    @Test
+    public void calcularTermostato(){
+       
+        double Volume = 2.0;
+        double tempDesejada = 20;
+        double tempAmbiente = 21;
+
+        double Termostato = Volume * 0.05 * (tempDesejada - tempAmbiente);
+
+        assertEquals(Termostato, -0.1);
+    }
+
+    @Test
+    public void calcularFiltragem(){
+       
+        double Volume = 2.0;
+
+        double Filtragem = Volume * 3;
+
+        assertEquals(Filtragem, 6);
     }
 }
-*/

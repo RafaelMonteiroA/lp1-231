@@ -10,9 +10,9 @@ public class IMC {
         double Peso = sc.nextDouble();
 
         System.out.println("Insira sua altura em centrimetros(cm)");
-        double AlturaMetros = sc.nextDouble();
+        double AlturaCM = sc.nextDouble();
         
-        double Altura = AlturaMetros/100;
+        double Altura = AlturaCM/100;
         double IMC = Peso / (Altura*Altura);
         double PesoNormal1 = 18.5 * (Altura*Altura);
         double GanharPeso = PesoNormal1 - Peso;
