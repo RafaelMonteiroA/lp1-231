@@ -1,4 +1,4 @@
-package semana11;
+package semana12;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,9 +8,7 @@ public class TestePessoa {
     
     @Test
     public void calcularIMC(){
-        Pessoa p1 = new Pessoa();
-        p1.peso = 57.8;
-        p1.altura = 1.7;
+        Pessoa p1 = new Pessoa(57.8, 1.7);
 
         double IMC = p1.calcularIMC();
 
@@ -19,9 +17,7 @@ public class TestePessoa {
 
     @Test
     public void precisaPerderPeso(){
-        Pessoa p1 = new Pessoa();
-        p1.peso = 78.0;
-        p1.altura = 1.7;
+        Pessoa p1 = new Pessoa(78.0, 1.7);
 
         double perderPeso = p1.peso - p1.pesoNormal2();
 
@@ -30,9 +26,7 @@ public class TestePessoa {
 
     @Test
     public void precisaGanharPeso(){
-        Pessoa p1 = new Pessoa();
-        p1.peso = 50.0;
-        p1.altura = 1.7;
+        Pessoa p1 = new Pessoa(50.0, 1.7);
 
         double ganharPeso = p1.pesoNormal1() - p1.peso;
 
@@ -41,9 +35,7 @@ public class TestePessoa {
 
     @Test
     public void pesoNormal(){
-        Pessoa p1 = new Pessoa();
-        p1.peso = 57.8;
-        p1.altura = 1.7;
+        Pessoa p1 = new Pessoa(57.8, 1.7);
 
         double IMC = p1.calcularIMC();
 
