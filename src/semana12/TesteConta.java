@@ -29,9 +29,9 @@ public class TesteConta {
         Conta c1 = new Conta(1, 30, "Alex");
         Conta conta = new Conta(2, 50, "BetaTester");
 
-        double saldoAtual = c1.transferir(20);
+        double saldoAtual = c1.transferir(20.0, conta);
 
-        assertEquals(saldoAtual, 10);
-        assertEquals(conta.saldo, 70);
+        assertEquals(saldoAtual, 70);
+        assertEquals(c1.saldo, 10);
     }
 }

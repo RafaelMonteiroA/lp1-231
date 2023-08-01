@@ -1,11 +1,11 @@
 package semana12;
 
 public class Conta {
-    public int codigo;
+    public double codigo;
     public double saldo;
     public String correntista;
 
-    public Conta(int codigo, double saldo, String correntista){
+    public Conta(double codigo, double saldo, String correntista){
         this.codigo = codigo;
         this.saldo = saldo;
         this.correntista = correntista;
