@@ -9,7 +9,6 @@ public class VendedorFixo {
         this.salario = salario;
     }
 
-    @Override
     public double obterSalario(){
         return (vendas * (comissao/100)) + salario;
     }
