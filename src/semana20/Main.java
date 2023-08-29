@@ -11,13 +11,13 @@ public class Main{
         UnicaEscolha questaoUnica = new UnicaEscolha(1,"qual é a capital da França?", List.of("Paris", "Londres", "Madri", "Berlim"), "Paris");
         System.out.println(questaoUnica.getEnunciado() + "\n" + questaoUnica.getOpcoes());
         String resposta1 = sc.next();
+        String respostaCerta = questaoUnica.getRespostaCerta();
 
-        if (resposta1 == questaoUnica.getRespostaCerta()){
+        if (resposta1.equals(respostaCerta))
         prova.adicionarQuestao(questaoUnica);
-        }
 
 
-        VerdadeiroFalso questaoVerdadeiroFalso = new VerdadeiroFalso(2, "A Terra é plana?", false);
+        VerdadeiroFalso questaoVerdadeiroFalso = new VerdadeiroFalso(2, "A Terra é plana? (responda com false ou true)", false);
         System.out.println(questaoVerdadeiroFalso.getEnunciado());
         Boolean resposta2 = sc.nextBoolean();
 
@@ -25,18 +25,14 @@ public class Main{
         prova.adicionarQuestao(questaoVerdadeiroFalso);
 
 
-        MultiplaEscolha questaoMultipla = new MultiplaEscolha(1,"Quais dessas são capitais de países?", List.of("Paris", "Bangu", "Madri", "Paraiba"), List.of("Paris", "Madri"));
-        prova.adicionarQuestao(questaoMultipla);
-        System.out.println(questaoMultipla.getEnunciado() + "\n" + questaoMultipla.getOpcoes());
-
-        System.out.println("\n Primeira opção: ");
-
+        MultiplaEscolha questaoMult = new MultiplaEscolha(3,"qual dessas são capitais de algum país?", List.of("Paris", "Bangu", "Madri", "Cebolinha"), List.of("Paris","Madri"));
+        System.out.println(questaoMult.getEnunciado() + "\n" + questaoMult.getOpcoes());
         String resposta3 = sc.nextLine();
-
-        System.out.println("\nSegunda opção: ");
-        
-        String resposta4 = sc.nextLine();
-
+        for (String resposta : resposta3.split(", ")) { // Madri, Paris
+            if (resposta3.equals(questaoMult.getRespostasCertas()))
+            prova.adicionarQuestao(questaoMult);
+            
+        }
 
         System.out.println("Pontuaçao total da prova: " + prova.CalcularPontuacaoTotal());
 
