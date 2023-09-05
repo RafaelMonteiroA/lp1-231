@@ -1,7 +1,7 @@
 package semana17;
 
-public class A2 {
+public abstract class A2 {
     protected int aA;
 
-    public void mA();
+    public abstract void mA();
 }

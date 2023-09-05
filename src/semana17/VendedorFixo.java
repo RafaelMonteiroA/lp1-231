@@ -1,6 +1,6 @@
 package semana17;
 
-public class VendedorFixo {
+public class VendedorFixo extends Vendedor {
     
     private double salario;
 

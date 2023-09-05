@@ -1,6 +1,6 @@
 package semana17;
 
-public class A {
+public abstract class A {
     protected int aX;
     protected int aY;
 
@@ -9,7 +9,7 @@ public class A {
         this.aY = aY;
     }
 
-    public void mX();
+    public abstract void mX();
 
-    public void mY();
+    public abstract void mY();
 }
