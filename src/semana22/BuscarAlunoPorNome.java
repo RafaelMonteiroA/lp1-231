@@ -6,28 +6,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ListarPeloId {
+public class BuscarAlunoPorNome {
     public static void main(String[] args) throws SQLException {
         String url = "jdbc:mysql://localhost/estudante?user=estudante&password=estudante&useSSL=true";
         Connection conn     = DriverManager.getConnection(url);
 
-        int id = 1;
+        String nome = "Maria da Silva";
 
-        String sql = "SELECT * FROM alunos WHERE id = ?";
+        String sql = "SELECT * FROM alunos WHERE nome = ?";
         PreparedStatement pstm = conn.prepareStatement(sql);
-        pstm.setInt(1, id);
+        pstm.setString(1, nome);
         pstm.executeUpdate();
         ResultSet rs = pstm.executeQuery(sql);
 
         while(rs.next()){
-            int id1 = rs.getInt("id");
-            if (id1 == id) {
-            String nome = rs.getString("nome");
+            String nome1 = rs.getString("nome");
+            if (nome1.equals("Maria da Silva")) {
+            int id = rs.getInt("id");
             String email = rs.getString("email");
             boolean ativo = rs.getBoolean("ativo");
 
-            System.out.println(id1);
-            System.out.println(nome);
+            System.out.println(id);
+            System.out.println(nome1);
             System.out.println(email);
             System.out.println(ativo);
             }
