@@ -6,10 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ListarPeloId {
+public class ListarAlunoId {
     public static void main(String[] args) throws SQLException {
-        String url = "jdbc:mysql://localhost/estudante?user=estudante&password=estudante&useSSL=true";
-        Connection conn     = DriverManager.getConnection(url);
+        String url = "jdbc:mysql://localhost/estudante?user=estudante&password=estudante&useSSL=true";  
+        Connection conn = DriverManager.getConnection(url);
 
         int id = 1;
 
@@ -18,10 +18,10 @@ public class ListarPeloId {
         pstm.setInt(1, id);
         pstm.executeUpdate();
         ResultSet rs = pstm.executeQuery(sql);
-
+        
         while(rs.next()){
             int id1 = rs.getInt("id");
-            if (id1 == id) {
+            if (id1 == 1) {
             String nome = rs.getString("nome");
             String email = rs.getString("email");
             boolean ativo = rs.getBoolean("ativo");
