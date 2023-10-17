@@ -14,12 +14,6 @@ public class TelefoneFuncionario {
         this.numero = numero;
     }
 
-    public TelefoneFuncionario(Integer id_funcionario, String ddd, String numero) {
-        this.id_funcionario = id_funcionario;
-        this.ddd = ddd;
-        this.numero = numero;
-    }
-
     public Integer getId() {
         return id;
     }

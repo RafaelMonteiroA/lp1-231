@@ -1,3 +1,5 @@
+CardapioDAO.java
+
 package semana24;
 
 import java.sql.Connection;
@@ -8,13 +10,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-// DAO = Data Access Object 
-public class EmailClienteDAO {
-    //CRUD
+public class CardapioDAO {
 
-    public EmailCliente create(EmailCliente emailcliente) throws SQLException {
+    public Cardapio create(Cardapio cardapio) throws SQLException {
         String sql = """
-            INSERT INTO EmailCliente (id, id_funcionario, email)
+            INSERT INTO Cardapio (id, preco, sabor_pizza)
             VALUES (?, ?, ?);
         """;
         
@@ -23,30 +23,30 @@ public class EmailClienteDAO {
             PreparedStatement statement = connection
                 .prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         ) {
-
-            statement.setInt(1, emailcliente.getId());
-            statement.setInt(2, emailcliente.getid_cliente());
-            statement.setString(3, emailcliente.getemail());
+            
+            statement.setDouble(1, cardapio.getId());
+            statement.setDouble(2, cardapio.getPreco());
+            statement.setString(3, cardapio.getsaborPizza());
             statement.executeUpdate();
 
             ResultSet rs = statement.getGeneratedKeys();
 
             if(rs.next()) {
-                emailcliente.setId(rs.getInt(1));
+                cardapio.setId(rs.getInt(1));
             }
 
             rs.close();
 
-            return emailcliente;
+            return cardapio;
             
-        } 
+        }
         
     }
 
-    public EmailCliente update(EmailCliente emailcliente) throws SQLException {
+    public Cardapio update(Cardapio cardapio) throws SQLException {
         String sql = """
-            UPDATE EmailCliente 
-            SET id_funcionario = ?, email = ?
+            UPDATE Cardapio
+            SET preco = ?, sabor_pizza = ?
             WHERE id = ?;
         """;
 
@@ -55,14 +55,14 @@ public class EmailClienteDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
-            statement.setInt(1, emailcliente.getid_cliente());
-            statement.setString(2, emailcliente.getemail());
-            statement.setInt(3, emailcliente.getId());
+            statement.setDouble(1, cardapio.getPreco());
+            statement.setString(2, cardapio.getsaborPizza());
+            statement.setInt(3, cardapio.getId());
             
             int linhasAfetadas = statement.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                return emailcliente;
+                return cardapio;
             }
             
             return null;
@@ -73,7 +73,7 @@ public class EmailClienteDAO {
     }
 
     public void delete(Integer id) {
-        String sql = "DELETE FROM EmailCliente WHERE id = ?;";
+        String sql = "DELETE FROM Cardapio WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -86,12 +86,12 @@ public class EmailClienteDAO {
         }
     }
 
-    public void delete(EmailCliente emailcliente) {
-        delete(emailcliente.getId());
+    public void delete(Cardapio cardapio) {
+        delete(cardapio.getId());
     }
 
-    public EmailCliente findById(Integer id) {
-        String sql = "SELECT * FROM EmailCliente WHERE id = ?;";
+    public Cardapio findById(Integer id) {
+        String sql = "SELECT * FROM Cardapio WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -100,7 +100,7 @@ public class EmailClienteDAO {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                return resultSetToEmailCliente(rs);
+                return resultSetToCardapio(rs);
             }
 
             rs.close();
@@ -113,9 +113,9 @@ public class EmailClienteDAO {
         return null;
     }
 
-    public List<EmailCliente> findAll() throws SQLException {
-        String sql = "SELECT * FROM EmailCliente;";
-        List<EmailCliente> emailcliente = new ArrayList<>();
+    public List<Cardapio> findAll() throws SQLException {
+        String sql = "SELECT * FROM Cardapio;";
+        List<Cardapio> cardapios = new ArrayList<>();
 
         try (
             Connection connection = Conexao.getConnection();
@@ -123,20 +123,20 @@ public class EmailClienteDAO {
             ResultSet rs = statement.executeQuery(sql);
         ) {
             while(rs.next()) {
-                emailcliente.add(resultSetToEmailCliente(rs));
+                cardapios.add(resultSetToCardapio(rs));
             }
 
-            return emailcliente;
+            return cardapios;
         
-        } 
+        }
         
     }
 
-    private EmailCliente resultSetToEmailCliente(ResultSet rs) throws SQLException {
-        return new EmailCliente(
+    private Aluno resultSetToCardapio(ResultSet rs) throws SQLException {
+        return new Cardapio(
             rs.getInt("id"),
-            rs.getInt("id_cliente"),
-            rs.getString("email")
+            rs.getDouble("preco"),
+            rs.getString("sabor_pizza"),
         );
     }
 }

@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 // DAO = Data Access Object 
-public class EmailClienteDAO {
+public class VendasDAO {
     //CRUD
 
-    public EmailCliente create(EmailCliente emailcliente) throws SQLException {
+    public Vendas create(Vendas vendas) throws SQLException {
         String sql = """
-            INSERT INTO EmailCliente (id, id_funcionario, email)
-            VALUES (?, ?, ?);
+            INSERT INTO Vendas (id, id_cliente, id_funcionario, id_pizza, adicional, preco_adicional)
+            VALUES (?, ?, ?, ?, ?, ?);
         """;
         
         try (
@@ -24,29 +24,32 @@ public class EmailClienteDAO {
                 .prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         ) {
 
-            statement.setInt(1, emailcliente.getId());
-            statement.setInt(2, emailcliente.getid_cliente());
-            statement.setString(3, emailcliente.getemail());
+            statement.setInt(1, vendas.getId());
+            statement.setInt(2, vendas.getId_cliente());
+            statement.setString(3, vendas.getId_funcionario());
+            statement.setString(4, vendas.getId_pizza());
+            statement.setString(5, vendas.getAdicional());
+            statement.setString(6, vendas.getPreco_adicional());
             statement.executeUpdate();
 
             ResultSet rs = statement.getGeneratedKeys();
 
             if(rs.next()) {
-                emailcliente.setId(rs.getInt(1));
+                telefonefuncionario.setId(rs.getInt(1));
             }
 
             rs.close();
 
-            return emailcliente;
+            return vendas;
             
         } 
         
     }
 
-    public EmailCliente update(EmailCliente emailcliente) throws SQLException {
+    public Vendas update(Vendas vendas) throws SQLException {
         String sql = """
-            UPDATE EmailCliente 
-            SET id_funcionario = ?, email = ?
+            UPDATE Vendas 
+            SET id_cliente = ?, id_funcionario = ?, id_pizza = ?, adicional = ?, preco_adicional = ?
             WHERE id = ?;
         """;
 
@@ -55,14 +58,17 @@ public class EmailClienteDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
-            statement.setInt(1, emailcliente.getid_cliente());
-            statement.setString(2, emailcliente.getemail());
-            statement.setInt(3, emailcliente.getId());
+            statement.setInt(1, vendas.getId_cliente());
+            statement.setString(2, vendas.getId_funcionario());
+            statement.setString(3, vendas.getId_pizza());
+            statement.setString(4, vendas.getAdicional());
+            statement.setString(5, vendas.getPreco_adicional());
+            statement.setInt(6, vendas.getId());
             
             int linhasAfetadas = statement.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                return emailcliente;
+                return telefonefuncionario;
             }
             
             return null;
@@ -73,7 +79,7 @@ public class EmailClienteDAO {
     }
 
     public void delete(Integer id) {
-        String sql = "DELETE FROM EmailCliente WHERE id = ?;";
+        String sql = "DELETE FROM Vendas WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -86,12 +92,12 @@ public class EmailClienteDAO {
         }
     }
 
-    public void delete(EmailCliente emailcliente) {
-        delete(emailcliente.getId());
+    public void delete(Vendas vendas) {
+        delete(vendas.getId());
     }
 
-    public EmailCliente findById(Integer id) {
-        String sql = "SELECT * FROM EmailCliente WHERE id = ?;";
+    public Vendas findById(Integer id) {
+        String sql = "SELECT * FROM Vendas WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -100,7 +106,7 @@ public class EmailClienteDAO {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                return resultSetToEmailCliente(rs);
+                return resultSetToVendas(rs);
             }
 
             rs.close();
@@ -113,9 +119,9 @@ public class EmailClienteDAO {
         return null;
     }
 
-    public List<EmailCliente> findAll() throws SQLException {
-        String sql = "SELECT * FROM EmailCliente;";
-        List<EmailCliente> emailcliente = new ArrayList<>();
+    public List<Vendas> findAll() throws SQLException {
+        String sql = "SELECT * FROM Vendas;";
+        List<Vendas> vendas = new ArrayList<>();
 
         try (
             Connection connection = Conexao.getConnection();
@@ -123,20 +129,23 @@ public class EmailClienteDAO {
             ResultSet rs = statement.executeQuery(sql);
         ) {
             while(rs.next()) {
-                emailcliente.add(resultSetToEmailCliente(rs));
+                vendas.add(resultSetToVendas(rs));
             }
 
-            return emailcliente;
+            return vendas;
         
         } 
         
     }
 
-    private EmailCliente resultSetToEmailCliente(ResultSet rs) throws SQLException {
-        return new EmailCliente(
+    private Vendas resultSetToVendas(ResultSet rs) throws SQLException {
+        return new Vendas(
             rs.getInt("id"),
             rs.getInt("id_cliente"),
-            rs.getString("email")
+            rs.getInt("id_funcionario"),
+            rs.getInt("id_pizza"),
+            rs.getString("adicional"),
+            rs.getString("preco_adicional")
         );
     }
 }

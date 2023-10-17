@@ -12,11 +12,6 @@ public class EmailFuncionario {
         this.email = email;
     }
 
-    public EmailFuncionario(Integer id_funcionario, String email) {
-        this.id_funcionario = id_funcionario;
-        this.email = email;
-    }
-
     public Integer getId() {
         return id;
     }

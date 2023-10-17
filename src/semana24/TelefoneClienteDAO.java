@@ -14,7 +14,7 @@ public class TelefoneClienteDAO {
 
     public TelefoneCliente create(TelefoneCliente telefonecliente) throws SQLException {
         String sql = """
-            INSERT INTO TelefoneCliente (id, id_funcionario, ddd, numero)
+            INSERT INTO TelefoneCliente (id, id_cliente, ddd, numero)
             VALUES (?, ?, ?, ?);
         """;
         
@@ -47,7 +47,7 @@ public class TelefoneClienteDAO {
     public TelefoneCliente update(TelefoneCliente telefonecliente) throws SQLException {
         String sql = """
             UPDATE TelefoneCliente 
-            SET id_funcionario = ?, ddd = ?, numero = ?
+            SET id_cliente = ?, ddd = ?, numero = ?
             WHERE id = ?;
         """;
 
@@ -116,7 +116,7 @@ public class TelefoneClienteDAO {
     }
 
     public List<TelefoneCliente> findAll() throws SQLException {
-        String sql = "SELECT * FROM TelefoneFuncionario;";
+        String sql = "SELECT * FROM TelefoneCliente;";
         List<TelefoneCliente> telefonecliente = new ArrayList<>();
 
         try (

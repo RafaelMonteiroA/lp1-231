@@ -12,11 +12,6 @@ public class EmailCliente {
         this.email = email;
     }
 
-    public EmailCliente(Integer id_cliente, String email) {
-        this.id_cliente = id_cliente;
-        this.email = email;
-    }
-
     public Integer getId() {
         return id;
     }

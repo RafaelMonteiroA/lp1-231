@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 // DAO = Data Access Object 
-public class EmailClienteDAO {
+public class ClienteDAO {
     //CRUD
 
-    public EmailCliente create(EmailCliente emailcliente) throws SQLException {
+    public Cliente create(Cliente cliente) throws SQLException {
         String sql = """
-            INSERT INTO EmailCliente (id, id_funcionario, email)
+            INSERT INTO Cliente (id, nome, data_nascimento)
             VALUES (?, ?, ?);
         """;
         
@@ -24,29 +24,29 @@ public class EmailClienteDAO {
                 .prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         ) {
 
-            statement.setInt(1, emailcliente.getId());
-            statement.setInt(2, emailcliente.getid_cliente());
-            statement.setString(3, emailcliente.getemail());
+            statement.setInt(1, cliente.getId());
+            statement.setString(2, cliente.getNome());
+            statement.setString(3, cliente.getData_nascimento());
             statement.executeUpdate();
 
             ResultSet rs = statement.getGeneratedKeys();
 
             if(rs.next()) {
-                emailcliente.setId(rs.getInt(1));
+                cliente.setId(rs.getInt(1));
             }
 
             rs.close();
 
-            return emailcliente;
+            return cliente;
             
         } 
         
     }
 
-    public EmailCliente update(EmailCliente emailcliente) throws SQLException {
+    public Cliente update(Cliente cliente) throws SQLException {
         String sql = """
-            UPDATE EmailCliente 
-            SET id_funcionario = ?, email = ?
+            UPDATE Cliente 
+            SET nome = ?, data_nascimento = ?
             WHERE id = ?;
         """;
 
@@ -55,14 +55,14 @@ public class EmailClienteDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
-            statement.setInt(1, emailcliente.getid_cliente());
-            statement.setString(2, emailcliente.getemail());
-            statement.setInt(3, emailcliente.getId());
+            statement.setString(1, cliente.getNome());
+            statement.setString(2, cliente.getData_nascimento());
+            statement.setInt(3, cliente.getId());
             
             int linhasAfetadas = statement.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                return emailcliente;
+                return cliente;
             }
             
             return null;
@@ -73,7 +73,7 @@ public class EmailClienteDAO {
     }
 
     public void delete(Integer id) {
-        String sql = "DELETE FROM EmailCliente WHERE id = ?;";
+        String sql = "DELETE FROM Cliente WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -86,12 +86,12 @@ public class EmailClienteDAO {
         }
     }
 
-    public void delete(EmailCliente emailcliente) {
-        delete(emailcliente.getId());
+    public void delete(Cliente cliente) {
+        delete(cliente.getId());
     }
 
-    public EmailCliente findById(Integer id) {
-        String sql = "SELECT * FROM EmailCliente WHERE id = ?;";
+    public Cliente findById(Integer id) {
+        String sql = "SELECT * FROM Cliente WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -100,7 +100,7 @@ public class EmailClienteDAO {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                return resultSetToEmailCliente(rs);
+                return resultSetToCliente(rs);
             }
 
             rs.close();
@@ -113,9 +113,9 @@ public class EmailClienteDAO {
         return null;
     }
 
-    public List<EmailCliente> findAll() throws SQLException {
-        String sql = "SELECT * FROM EmailCliente;";
-        List<EmailCliente> emailcliente = new ArrayList<>();
+    public List<Cliente> findAll() throws SQLException {
+        String sql = "SELECT * FROM Cliente;";
+        List<Cliente> cliente = new ArrayList<>();
 
         try (
             Connection connection = Conexao.getConnection();
@@ -123,20 +123,20 @@ public class EmailClienteDAO {
             ResultSet rs = statement.executeQuery(sql);
         ) {
             while(rs.next()) {
-                emailcliente.add(resultSetToEmailCliente(rs));
+                cliente.add(resultSetToCliente(rs));
             }
 
-            return emailcliente;
+            return cliente;
         
         } 
         
     }
 
-    private EmailCliente resultSetToEmailCliente(ResultSet rs) throws SQLException {
-        return new EmailCliente(
+    private Cliente resultSetToCliente(ResultSet rs) throws SQLException {
+        return new Cliente(
             rs.getInt("id"),
-            rs.getInt("id_cliente"),
-            rs.getString("email")
+            rs.getString("nome"),
+            rs.getString("data_nascimento")
         );
     }
 }

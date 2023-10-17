@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 // DAO = Data Access Object 
-public class EmailClienteDAO {
+public class ComprasDAO {
     //CRUD
 
-    public EmailCliente create(EmailCliente emailcliente) throws SQLException {
+    public Compras create(Compras compras) throws SQLException {
         String sql = """
-            INSERT INTO EmailCliente (id, id_funcionario, email)
-            VALUES (?, ?, ?);
+            INSERT INTO Compras (id, produto, quantidade, preco, distribuidora)
+            VALUES (?, ?, ?, ?, ?);
         """;
         
         try (
@@ -24,29 +24,31 @@ public class EmailClienteDAO {
                 .prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         ) {
 
-            statement.setInt(1, emailcliente.getId());
-            statement.setInt(2, emailcliente.getid_cliente());
-            statement.setString(3, emailcliente.getemail());
+            statement.setInt(1, compras.getId());
+            statement.setString(2, compras.getProduto());
+            statement.setString(3, compras.getQuantidade());
+            statement.setString(4, compras.getPreco());
+            statement.setString(5, compras.getDistribuidora());
             statement.executeUpdate();
 
             ResultSet rs = statement.getGeneratedKeys();
 
             if(rs.next()) {
-                emailcliente.setId(rs.getInt(1));
+                compras.setId(rs.getInt(1));
             }
 
             rs.close();
 
-            return emailcliente;
+            return compras;
             
         } 
         
     }
 
-    public EmailCliente update(EmailCliente emailcliente) throws SQLException {
+    public Compras update(Compras compras) throws SQLException {
         String sql = """
-            UPDATE EmailCliente 
-            SET id_funcionario = ?, email = ?
+            UPDATE Compras 
+            SET produto = ?, quantidade = ?, preco = ?, distribuidora
             WHERE id = ?;
         """;
 
@@ -55,14 +57,16 @@ public class EmailClienteDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
-            statement.setInt(1, emailcliente.getid_cliente());
-            statement.setString(2, emailcliente.getemail());
-            statement.setInt(3, emailcliente.getId());
+            statement.setString(1, compras.getProduto());
+            statement.setString(2, compras.getQuantidade());
+            statement.setString(3, compras.getPreco());
+            statement.setString(4, compras.getDistribuidora());
+            statement.setInt(5, compras.getId());
             
             int linhasAfetadas = statement.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                return emailcliente;
+                return compras;
             }
             
             return null;
@@ -73,7 +77,7 @@ public class EmailClienteDAO {
     }
 
     public void delete(Integer id) {
-        String sql = "DELETE FROM EmailCliente WHERE id = ?;";
+        String sql = "DELETE FROM Compras WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -86,12 +90,12 @@ public class EmailClienteDAO {
         }
     }
 
-    public void delete(EmailCliente emailcliente) {
-        delete(emailcliente.getId());
+    public void delete(Compras compras) {
+        delete(compras.getId());
     }
 
-    public EmailCliente findById(Integer id) {
-        String sql = "SELECT * FROM EmailCliente WHERE id = ?;";
+    public Compras findById(Integer id) {
+        String sql = "SELECT * FROM Compras WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -100,7 +104,7 @@ public class EmailClienteDAO {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                return resultSetToEmailCliente(rs);
+                return resultSetToCompras(rs);
             }
 
             rs.close();
@@ -113,9 +117,9 @@ public class EmailClienteDAO {
         return null;
     }
 
-    public List<EmailCliente> findAll() throws SQLException {
-        String sql = "SELECT * FROM EmailCliente;";
-        List<EmailCliente> emailcliente = new ArrayList<>();
+    public List<Compras> findAll() throws SQLException {
+        String sql = "SELECT * FROM Compras;";
+        List<Compras> compras = new ArrayList<>();
 
         try (
             Connection connection = Conexao.getConnection();
@@ -123,20 +127,22 @@ public class EmailClienteDAO {
             ResultSet rs = statement.executeQuery(sql);
         ) {
             while(rs.next()) {
-                emailcliente.add(resultSetToEmailCliente(rs));
+                compras.add(resultSetToCompras(rs));
             }
 
-            return emailcliente;
+            return compras;
         
         } 
         
     }
 
-    private EmailCliente resultSetToEmailCliente(ResultSet rs) throws SQLException {
-        return new EmailCliente(
+    private Compras resultSetToCompras(ResultSet rs) throws SQLException {
+        return new Compras(
             rs.getInt("id"),
-            rs.getInt("id_cliente"),
-            rs.getString("email")
+            rs.getString("produto"),
+            rs.getString("quantidade"),
+            rs.getString("Preco"),
+            rs.getString("distribuidora")
         );
     }
 }
