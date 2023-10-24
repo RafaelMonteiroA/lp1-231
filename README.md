@@ -1,10 +1,15 @@
-# Projeto Pregão Bolsa de Valores
+# Aulas de LP1
 
-Repositório destinado ao trabalho feito para a disciplina de LG2, baseado em uma simulação da bolsa de valores.
+Repositório destinado aos conteúdos de Linguagem de Programação 1.
 
-## Participantes
+## Conteúdos
 
-- Rafael Monteiro
-- Rafael Santos
-- Mateus Nogueira
-- Luiza Marcolino
+- Semana 01
+    - Apresentação da disciplina
+    - JDK, JRE, javac e java
+- Semana 02
+    - Controle de versão
+    - Git e Github
+- Semana 03
+    - Criação de projetos Java
+    - Introdução a linguagem Java
